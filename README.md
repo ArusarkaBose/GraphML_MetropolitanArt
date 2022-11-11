@@ -25,12 +25,10 @@ The learning of node and edge representations is most generalised in this way. T
 Simplified graphical representation of the Doc2Vec skip-gram model. The number of d neurons in the hidden layer represents the final size of the embedding space. We can have the following three different ways subgraphs may be created.
 
 **Approach 1:** Embed nodes and aggregate them (sum or average most common).
-
 **Approach 2:** Create a node (super-node) that symbolizes and spans each subgraph and then embed that node.
-
 **Approach 3:** Anonymous Walk Embeddings. Capture states that correspond to the index of the first time a node is visited in a random walk. Considered anonymous because this method is agnostic to the identity of the nodes visited.
 <p align="center">
-![image](https://user-images.githubusercontent.com/42794447/201334695-3e85eb3e-ec21-4df3-92f6-6a28d4aa5391.png)
+  <img width="460" height="300" src="[http://www.fillmurray.com/460/300](https://user-images.githubusercontent.com/42794447/201334695-3e85eb3e-ec21-4df3-92f6-6a28d4aa5391.png)">
   </p>
 
 To express the graph as a probability distribution over these walks is the main objective.
