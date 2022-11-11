@@ -1,5 +1,18 @@
 # GraphML_MetropolitanArt
 
+### Node2Vec
+The way the random walks are created in the Node2Vec Deep Walk model differs noticeably from that of the Deep Walk model. Because Deep Walk is limited in its ability to preserve a node's local neighbourhood information, Node2Vec does the graph exploration using a flexible and effective combination of Breadth-First Search (BFS) and Depth-First Search (DFS). We do so by:
+1. p: the likelihood that a random stroll will return to the first node.
+2. q: the likelihood that a random walk will go across a portion of the graph that hasn't been seen before. BFS/DFS ration is the ratio.
+
+![image](https://user-images.githubusercontent.com/42794447/201329387-75b0ee01-3f67-4628-89b3-8848b0bdca61.png)
+
+We see collection of artists being generated calculated via the generated walks. We added Medium, Department, and Object Type in the graph. So, some artists differing in the Period but using common materials appear in the same Department of the Museum. The search results for Vincent van Gogh are:
+
+![image](https://user-images.githubusercontent.com/42794447/201330066-0699ad3d-6a41-4d62-af60-d10eb974bd0c.png)
+
+### Edge2Vec
+
 ## Feature-Based Methods
 The easiest approach to conduct Supervised Learning is to use graph measures as features in a new dataset or in addition to an existing dataset.
 Depending on the prediction task, we could compute node-level, edge-level, and graph-level metrics. These metrics can serve as rich information about the entity itself and also its relationship to other entities. This can be seen as a classical Supervised ML task, but the emphasis here is on Feature Selection. Depending on our prediction task, you may choose different graph metrics to predict for the label. In our dataset, the label we’ll choose is the “Highlight” field.
