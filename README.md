@@ -12,6 +12,28 @@ We see collection of artists being generated calculated via the generated walks.
 ![image](https://user-images.githubusercontent.com/42794447/201330066-0699ad3d-6a41-4d62-af60-d10eb974bd0c.png)
 
 ### Edge2Vec
+Edge2Vec is a fairly straightforward version of Node2Vec in which the embedding of the edge linking two neighbouring nodes is extracted using some elementary mathematical operations on the node embedding. Depending on the nature of your data and how it may relate to each other, different embeddings will be of value. An effective evaluation method can be to try each of them and see which has the most sensible separation of edges.
+
+![image](https://user-images.githubusercontent.com/42794447/201333794-d168070f-9d2f-4b28-a5f0-abe34e79f449.png)
+The image outlines collection of artists being generated calculated via the generated walks.
+
+### Graph2Vec
+The learning of node and edge representations is most generalised in this way. This model is known as Doc2Vec in natural language processing since it embeds numerous documents rather than single words or phrases. Graphs can be broken down into smaller units called subgraphs, and the model can be trained to learn an embedding that represents each of these subgraphs.
+
+![image](https://user-images.githubusercontent.com/42794447/201334165-40e96855-5f49-479a-a7ac-3b3e8dd9a82e.png)
+
+Simplified graphical representation of the Doc2Vec skip-gram model. The number of d neurons in the hidden layer represents the final size of the embedding space. We can have the following three different ways subgraphs may be created.
+
+**Approach 1:** Embed nodes and aggregate them (sum or average most common)
+**Approach 2:** Create a node (super-node) that symbolizes and spans each subgraph and then embed that node
+**Approach 3:** Anonymous Walk Embeddings. Capture states that correspond to the index of the first time a node is visited in a random walk. Considered anonymous because this method is agnostic to the identity of the nodes visited.
+![image](https://user-images.githubusercontent.com/42794447/201334695-3e85eb3e-ec21-4df3-92f6-6a28d4aa5391.png)
+
+To express the graph as a probability distribution over these walks is the main objective.
+In our situation, we can make subgraphs using just the rows that contain works by Vincent van Gogh and the other artists the model identified as being related to him. We can express all of their data using embeddings in a far more compact and effective manner. Note that for the model to fit properly, the node labels must be converted to integers. The next figure shows the results for the same search for Graph2Vec.
+![image](https://user-images.githubusercontent.com/42794447/201334922-ad868e4e-46c4-49fd-81ba-3fde163e8467.png)
+
+This shows how Without target labels or ground truth values, we can use graphs to find underlying structural similarities really effectively and efficiently.
 
 ## Feature-Based Methods
 The easiest approach to conduct Supervised Learning is to use graph measures as features in a new dataset or in addition to an existing dataset.
