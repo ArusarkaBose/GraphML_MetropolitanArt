@@ -1,5 +1,63 @@
 # GraphML_MetropolitanArt
 
+## Data Visualization & Graph Formation
+We start with conducting some exploratory data analysis to visualize the graph. With the help of network topology visualisation, we can understand what kind of data we are dealing with. The dataset consists of over 450K rows which would take a very long time to encode in a graph. Hence, we filter down to works having the Classification of “Paintings” to reduce the complexity of the graph. 
+
+![Untitled](https://user-images.githubusercontent.com/45456921/201350783-fe44ab7b-be3c-4dc9-ba5a-955e047cf7bd.png)
+
+We select a handful of fields having relevance with "Paintings", namely ['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', 'Title', 'Highlight']. Moreover, we replace the NaN fields in each column by unknown_<column_name>. Sorting and collecting the top 10 occuring values for culture, we get:
+
+```
+Top 10 for Culture
+Culture
+unknown_Culture                 6591
+China                           2059
+Japan                           1173
+India (Gujarat)                  200
+American                         107
+Tibet                             81
+Nepal (Kathmandu Valley)          65
+India (Bengal) or Bangladesh      63
+Korea                             52
+India                             32
+```
+
+We can observe that there are a lot of values that are unknown or hard to accurately figure out. Similar observations are true for other columns as well. For now, we do not drop the unknown values from the dataset, as we would lose information about some other columns. 
+
+### Graph Formation
+We form an undirected graph, by creating a edge between two columns if the columns occur together. We do that by accumulating all rows for pairs of columns into a dataframe, and renaming the columns in a "From" - "To" format.
+![1_cO8LzDwYiI75TeJlYQY9ng](https://user-images.githubusercontent.com/45456921/201354363-e84e1cba-f440-4cec-8892-87aefdd7f4cb.png)
+
+The new dataframe is then converted into a graph by adding an edge between the values in the "From" column to "To" column using the networkx library. To better understand the graph, we do some basic analysis on the graph:
+
+```
+Number of nodes : 12688
+Number of edges : 66693
+Maximum degree : 9092
+Minimum degree : 2
+Average degree : 10.512767969735183
+Median degree : 6
+
+Graph Connectivity
+Connected Components : 1
+
+Graph Distance
+Average Distance : 2.500517379796479
+Diameter : 6
+
+Graph Clustering
+Transitivity : 0.0015246604242919772
+Average Clustering Coefficient : 0.5194453022433385
+```
+
+We observe a very low transitivity, as this is not a social network and there is no reason to expect triadic closure to hold. In addition, we shouldn't have many subgraphs that are only connected and nothing else, therefore only 1 connected component is an interesting measure that can make sense. The amount of nodes and edges suggests that the graph is being further segmented by a large number of specialist categories, artists, genres, etc.
+
+We calculate various centrality measures for the graph, such as degree centrality, betweenness centrality & closeness centrality. We observe that there are a handful of nodes strongly skewing the distributions, namely the nodes with "unknown" values. When we sort by the betweenness centrality, we find that a lot of the “unknown” or NaN fields dominate.
+
+![1_noQuWBLvzHEsOeLbtZ0FBw copy](https://user-images.githubusercontent.com/45456921/201384016-1020c08a-15fb-4848-825f-7c0405378dea.png)
+
+## Unsupervised Embedding Models
+
 ### Node2Vec
 The way the random walks are created in the Node2Vec Deep Walk model differs noticeably from that of the Deep Walk model. Because Deep Walk is limited in its ability to preserve a node's local neighbourhood information, Node2Vec does the graph exploration using a flexible and effective combination of Breadth-First Search (BFS) and Depth-First Search (DFS). We do so by:
 1. p: the likelihood that a random stroll will return to the first node.
@@ -33,7 +91,6 @@ Simplified graphical representation of the Doc2Vec skip-gram model. The number o
 
 To express the graph as a probability distribution over these walks is the main objective.
 In our situation, we can make subgraphs using just the rows that contain works by Vincent van Gogh and the other artists the model identified as being related to him. We can express all of their data using embeddings in a far more compact and effective manner. Note that for the model to fit properly, the node labels must be converted to integers. The next figure shows the results for the same search for Graph2Vec.
-
 ![image](https://user-images.githubusercontent.com/42794447/201334922-ad868e4e-46c4-49fd-81ba-3fde163e8467.png)
 
 This shows how Without target labels or ground truth values, we can use graphs to find underlying structural similarities really effectively and efficiently.
