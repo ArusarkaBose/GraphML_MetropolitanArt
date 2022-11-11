@@ -1,7 +1,10 @@
 # GraphML_MetropolitanArt
 
+## Introduction
+Representing data is represented as a graph allows us to embed the rich structural information as features. This results in better performance in some areas since relational structures can offer a wealth of useful data. We aim to apply various unsupervised learning methods on graph, using the dataset https://github.com/metmuseum/openaccess.
+
 ## Data Visualization & Graph Formation
-We start with conducting some exploratory data analysis to visualize the graph. With the help of network topology visualisation, we can understand what kind of data we are dealing with. The dataset consists of over 450K rows which would take a very long time to encode in a graph. Hence, we filter down to works having the Classification of “Paintings” to reduce the complexity of the graph. 
+We start with conducting some exploratory data analysis to visualize the dataset. With the help of network topology visualisation, we can understand what kind of data we are dealing with. The dataset consists of over 450K rows which would take a very long time to encode in a graph. Hence, we filter down to works having the Classification of “Paintings” to reduce the complexity of the graph. 
 
 ![Untitled](https://user-images.githubusercontent.com/45456921/201350783-fe44ab7b-be3c-4dc9-ba5a-955e047cf7bd.png)
 
