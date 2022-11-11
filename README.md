@@ -28,8 +28,8 @@ Simplified graphical representation of the Doc2Vec skip-gram model. The number o
 **Approach 2:** Create a node (super-node) that symbolizes and spans each subgraph and then embed that node.
 **Approach 3:** Anonymous Walk Embeddings. Capture states that correspond to the index of the first time a node is visited in a random walk. Considered anonymous because this method is agnostic to the identity of the nodes visited.
 <p align="center">
-  <img width="460" height="300" src="[https://user-images.githubusercontent.com/42794447/201334695-3e85eb3e-ec21-4df3-92f6-6a28d4aa5391.png]">
-  </p>
+  <img src="[https://user-images.githubusercontent.com/42794447/201334695-3e85eb3e-ec21-4df3-92f6-6a28d4aa5391.png]">
+</p>
 
 To express the graph as a probability distribution over these walks is the main objective.
 In our situation, we can make subgraphs using just the rows that contain works by Vincent van Gogh and the other artists the model identified as being related to him. We can express all of their data using embeddings in a far more compact and effective manner. Note that for the model to fit properly, the node labels must be converted to integers. The next figure shows the results for the same search for Graph2Vec.
