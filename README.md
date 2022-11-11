@@ -33,6 +33,7 @@ Simplified graphical representation of the Doc2Vec skip-gram model. The number o
 
 To express the graph as a probability distribution over these walks is the main objective.
 In our situation, we can make subgraphs using just the rows that contain works by Vincent van Gogh and the other artists the model identified as being related to him. We can express all of their data using embeddings in a far more compact and effective manner. Note that for the model to fit properly, the node labels must be converted to integers. The next figure shows the results for the same search for Graph2Vec.
+
 ![image](https://user-images.githubusercontent.com/42794447/201334922-ad868e4e-46c4-49fd-81ba-3fde163e8467.png)
 
 This shows how Without target labels or ground truth values, we can use graphs to find underlying structural similarities really effectively and efficiently.
