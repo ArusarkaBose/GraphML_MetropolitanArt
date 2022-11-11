@@ -15,6 +15,7 @@ We see collection of artists being generated calculated via the generated walks.
 Edge2Vec is a fairly straightforward version of Node2Vec in which the embedding of the edge linking two neighbouring nodes is extracted using some elementary mathematical operations on the node embedding. Depending on the nature of your data and how it may relate to each other, different embeddings will be of value. An effective evaluation method can be to try each of them and see which has the most sensible separation of edges.
 
 ![image](https://user-images.githubusercontent.com/42794447/201333794-d168070f-9d2f-4b28-a5f0-abe34e79f449.png)
+
 The image outlines collection of artists being generated calculated via the generated walks.
 
 ### Graph2Vec
@@ -24,12 +25,11 @@ The learning of node and edge representations is most generalised in this way. T
 
 Simplified graphical representation of the Doc2Vec skip-gram model. The number of d neurons in the hidden layer represents the final size of the embedding space. We can have the following three different ways subgraphs may be created.
 
-1. **Approach 1:** Embed nodes and aggregate them (sum or average most common).
-2. **Approach 2:** Create a node (super-node) that symbolizes and spans each subgraph and then embed that node.
-3. **Approach 3:** Anonymous Walk Embeddings. Capture states that correspond to the index of the first time a node is visited in a random walk. Considered anonymous because this method is agnostic to the identity of the nodes visited.
+1. Embed nodes and aggregate them (sum or average most common).
+2. Create a node (super-node) that symbolizes and spans each subgraph and then embed that node.
+3. Anonymous Walk Embeddings. Capture states that correspond to the index of the first time a node is visited in a random walk. Considered anonymous because this method is agnostic to the identity of the nodes visited.
 
-![image](hhttps://user-images.githubusercontent.com/42794447/201334695-3e85eb3e-ec21-4df3-92f6-6a28d4aa5391.png)
-
+![image](https://user-images.githubusercontent.com/42794447/201336600-10ff219a-ae05-4dd4-906b-2b433034f299.png)
 
 To express the graph as a probability distribution over these walks is the main objective.
 In our situation, we can make subgraphs using just the rows that contain works by Vincent van Gogh and the other artists the model identified as being related to him. We can express all of their data using embeddings in a far more compact and effective manner. Note that for the model to fit properly, the node labels must be converted to integers. The next figure shows the results for the same search for Graph2Vec.
