@@ -1,7 +1,14 @@
-# GraphML_MetropolitanArt
+# Artwork Clustering and Its Applications
 
 ## Introduction
 Representing data is represented as a graph allows us to embed the rich structural information as features. This results in better performance in some areas since relational structures can offer a wealth of useful data. We aim to apply various unsupervised learning methods on graph, using the dataset https://github.com/metmuseum/openaccess.
+
+## Brief Outline of the Dataset
+The Metropolitan Museum of Art presents over 5,000 years of art from around the world for everyone to experience and enjoy. The Museum lives in two iconic sites in New York City—The Met Fifth Avenue and The Met Cloisters. Millions of people also take part in The Met experience online. The Metropolitan Museum of Art provides select datasets of information on more than 470,000 artworks in its Collection for unrestricted commercial and noncommercial use. The dataset is available in CSV format, encoded in UTF-8. 
+
+Link of the dataset - https://github.com/metmuseum  [.CSV file available under openaccess]
+
+**Dataset Summary** - The dataset has categories like 'Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', ‘Dynasty’ and ‘Domain’. These categories help us identify several classes and clusters. We plan on using several graph structure based features like centrality to identify the importance of all of them to design the graph and apply the required algorithms to produce classification classes.
 
 ## Data Visualization & Graph Formation
 We start with conducting some exploratory data analysis to visualize the dataset. With the help of network topology visualisation, we can understand what kind of data we are dealing with. The dataset consists of over 450K rows which would take a very long time to encode in a graph. Hence, we filter down to works having the Classification of “Paintings” to reduce the complexity of the graph. 
