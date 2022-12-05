@@ -132,9 +132,12 @@ Depending on the prediction task, we could compute node-level, edge-level, and g
 <br><br>
 We print the value counts for **Highlight = 0** and **Highlight = 1**
 
-![image](https://user-images.githubusercontent.com/51702854/201316427-b34af279-88aa-481c-909e-e36b67308b35.png)
+![image](https://user-images.githubusercontent.com/51702854/205676051-e2d2a787-7b70-4c64-965a-7bbf2393d144.png)
 
-We see a large class imbalance here, which makes sense since only some artworks are able to be highlighted and usually museums contain a vast collection in their archives.
+We see a large class imbalance here, which makes sense since only some artworks are able to be highlighted and usually museums contain a vast collection in their archives. We also plot the *Highlight* feature.
+
+![image](https://user-images.githubusercontent.com/51702854/205676328-bfff10e1-4c9a-4e1f-a2bb-a98566b47ba9.png)
+
 
 On looking at the dataset, we see a variety of features that can be used to predict the **Highlight** value.
 
