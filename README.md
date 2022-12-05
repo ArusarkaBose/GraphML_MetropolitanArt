@@ -29,6 +29,11 @@ At the start of the project, we explore data and conduct some exploratory data a
 
 ![newplot](https://user-images.githubusercontent.com/42794447/205661959-6bfde109-0791-4c5b-8e58-a78014e3044d.png)
 
+**Distribution of Object Names of Artworks** -The style of the artwork is based upon the obkect type of the artwork as well. A painting is a little diffeent in style than a picture or a negative. However, the content of the image is not encoded by this feature but it gives good information about the style of the image.
+
+![image](https://user-images.githubusercontent.com/42794447/205674064-af05a8b6-de13-4357-bc04-573885439355.png)
+
+
 
 We select a handful of fields having relevance with "Paintings", namely ['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', 'Title', 'Highlight']. Moreover, we replace the NaN fields in each column by unknown_<column_name>. Sorting and collecting the top 10 occuring values for culture, we get:
 
