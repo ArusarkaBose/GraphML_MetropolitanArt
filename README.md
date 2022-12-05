@@ -36,6 +36,10 @@ At the start of the project, we explore data and conduct some exploratory data a
 
 We observed that for a lot of features, there are a lot of values that are unknown or hard to accurately figure out. Similar observations are true for other columns as well. For now, we do not drop the unknown values from the dataset, as we would lose information about some other columns. 
 
+## Aim
+![image](https://user-images.githubusercontent.com/42794447/205700404-7acabf9c-28d8-472f-a15f-bd7d4b072f88.png)
+
+
 ### Graph Formation
 We form an undirected graph, by creating a edge between two columns if the columns occur together. We do that by accumulating all rows for pairs of columns into a dataframe, and renaming the columns in a "From" - "To" format.
 
@@ -70,8 +74,6 @@ We calculate various centrality measures for the graph, such as degree centralit
 
 ![1_noQuWBLvzHEsOeLbtZ0FBw copy](https://user-images.githubusercontent.com/45456921/201384016-1020c08a-15fb-4848-825f-7c0405378dea.png)
 
-**Aim**
-![image](https://user-images.githubusercontent.com/42794447/205700404-7acabf9c-28d8-472f-a15f-bd7d4b072f88.png)
 
 ## Unsupervised Embedding Models
 
