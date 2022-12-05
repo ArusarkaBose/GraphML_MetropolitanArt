@@ -151,3 +151,4 @@ Finally, this was a node-level prediction task where the node in question is an 
 - Edge2Vec Algorithm - https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-2914-2
 - Graph2Vec Algorithm - https://arxiv.org/abs/1707.05005
 - Claudio Stamile, Aldo Marzullo, Enrico Deusebio - Graph Machine Learning
+- Medium Blog - https://towardsdatascience.com/graph-machine-learning-with-python-part-3-unsupervised-learning-aa2854fe0ff2
