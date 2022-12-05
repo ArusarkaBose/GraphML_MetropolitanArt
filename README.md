@@ -34,26 +34,7 @@ At the start of the project, we explore data and conduct some exploratory data a
 
 ![image](https://user-images.githubusercontent.com/42794447/205674064-af05a8b6-de13-4357-bc04-573885439355.png)
 
-
-
-We select a handful of fields having relevance with "Paintings", namely ['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', 'Title', 'Highlight']. Moreover, we replace the NaN fields in each column by unknown_<column_name>. Sorting and collecting the top 10 occuring values for culture, we get:
-
-```
-Top 10 for Culture
-Culture
-unknown_Culture                 6591
-China                           2059
-Japan                           1173
-India (Gujarat)                  200
-American                         107
-Tibet                             81
-Nepal (Kathmandu Valley)          65
-India (Bengal) or Bangladesh      63
-Korea                             52
-India                             32
-```
-
-We can observe that there are a lot of values that are unknown or hard to accurately figure out. Similar observations are true for other columns as well. For now, we do not drop the unknown values from the dataset, as we would lose information about some other columns. 
+We observed that for a lot of features, there are a lot of values that are unknown or hard to accurately figure out. Similar observations are true for other columns as well. For now, we do not drop the unknown values from the dataset, as we would lose information about some other columns. 
 
 ### Graph Formation
 We form an undirected graph, by creating a edge between two columns if the columns occur together. We do that by accumulating all rows for pairs of columns into a dataframe, and renaming the columns in a "From" - "To" format.
