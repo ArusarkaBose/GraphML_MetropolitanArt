@@ -70,6 +70,9 @@ We calculate various centrality measures for the graph, such as degree centralit
 
 ![1_noQuWBLvzHEsOeLbtZ0FBw copy](https://user-images.githubusercontent.com/45456921/201384016-1020c08a-15fb-4848-825f-7c0405378dea.png)
 
+**Aim**
+![image](https://user-images.githubusercontent.com/42794447/205700404-7acabf9c-28d8-472f-a15f-bd7d4b072f88.png)
+
 ## Unsupervised Embedding Models
 
 ### Node2Vec
