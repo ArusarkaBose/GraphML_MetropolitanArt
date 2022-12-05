@@ -63,7 +63,6 @@ The new dataframe is then converted into a graph by adding an edge between the v
 **Structure Components**
 - Transitivity : 0.00153
 - Average Clustering Coefficient : 0.52
-```
 
 We observe a very low transitivity, as this is not a social network and there is no reason to expect triadic closure to hold. In addition, we shouldn't have many subgraphs that are only connected and nothing else, therefore only 1 connected component is an interesting measure that can make sense. The amount of nodes and edges suggests that the graph is being further segmented by a large number of specialist categories, artists, genres, etc.
 
