@@ -38,7 +38,8 @@ We observed that for a lot of features, there are a lot of values that are unkno
 
 ### Graph Formation
 We form an undirected graph, by creating a edge between two columns if the columns occur together. We do that by accumulating all rows for pairs of columns into a dataframe, and renaming the columns in a "From" - "To" format.
-![1_cO8LzDwYiI75TeJlYQY9ng](https://user-images.githubusercontent.com/45456921/201354363-e84e1cba-f440-4cec-8892-87aefdd7f4cb.png)
+
+![Untitled Diagram drawio (4)](https://user-images.githubusercontent.com/42794447/205692596-28a52033-9204-4bd2-aa06-c29b6301ea98.png)
 
 The new dataframe is then converted into a graph by adding an edge between the values in the "From" column to "To" column using the networkx library. To better understand the graph, we do some basic analysis on the graph:
 
