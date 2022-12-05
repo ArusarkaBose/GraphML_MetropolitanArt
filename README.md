@@ -13,7 +13,7 @@ The Metropolitan Museum of Art presents over 5,000 years of art from around the 
 ## Reason behind this project
 Each and every artist has a distinctive style that differentiates his/her painting from the rest and often it is the muse of art connoisseurs to ascribe a painting to someone. This project will aim to develop a model which can be used to classify or cluster paintings belonging to a single artist or multiple artists with the same style of work. The work can be further extended to ferret out fakes from original works in cases where it becomes difficult even for a trained eye. Not just that, similar algorithms and work seem to be applicable in every domain that will flourish with user/product clustering - like e-commerce, business marketing, and identifying the target audience. 
 
-## Data Visualization & Graph Formation
+## Data Visualization
 We start with conducting some exploratory data analysis to visualize the dataset. With the help of network topology visualisation, we can understand what kind of data we are dealing with. The dataset consists of over 450K rows which would take a very long time to encode in a graph. Hence, we filter down to works having the Classification of “Paintings” to reduce the complexity of the graph. 
 
 ![Untitled](https://user-images.githubusercontent.com/45456921/201350783-fe44ab7b-be3c-4dc9-ba5a-955e047cf7bd.png)
@@ -129,3 +129,11 @@ We randomly oversample our dataset and then predict for the target variable.
 Though the results are not extremely impressive, it is interesting to note that we just used the base model and thus better performance can be obtained with extensive tuning or feature engineering. The reason we optimize for recall in our problem is because it’s better to get “relevant” results than “exact” results in this case, so it is good to see a relatively high recall score.
 <br><br>
 Finally, this was a node-level prediction task where the node in question is an artwork. This same concept can really easily be done for edge or graph-level (with traditional features) tasks as well making it highly versatile.
+
+## References Used
+- Dataset - https://github.com/metmuseum
+- Word2Vec Algorithm - https://code.google.com/archive/p/word2vec/
+- Node2Vec Algorithm - https://snap.stanford.edu/node2vec/
+- Edge2Vec Algorithm - https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-2914-2
+- Graph2Vec Algorithm - https://arxiv.org/abs/1707.05005
+- Claudio Stamile, Aldo Marzullo, Enrico Deusebio - Graph Machine Learning
