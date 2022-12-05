@@ -147,7 +147,7 @@ We randomly oversample our dataset and then predict for the target variable. We 
 
 ![image](https://user-images.githubusercontent.com/51702854/205681577-25cc741c-471a-443a-bea1-0f33e9e660dc.png)
 
-![image](https://user-images.githubusercontent.com/51702854/201317464-f5f8a468-923b-4b74-b655-e3d4a379bbdb.png)
+![image](https://user-images.githubusercontent.com/51702854/205682342-f2d9e8a7-7faa-44aa-985e-59708e08bba3.png)
 
 Though the results are not extremely impressive, it is interesting to note that we just used the base model and thus better performance can be obtained with extensive tuning or feature engineering. The reason we optimize for recall in our problem is because it’s better to get “relevant” results than “exact” results in this case, so it is good to see a relatively high recall score.
 <br><br>
