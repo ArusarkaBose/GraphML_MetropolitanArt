@@ -15,6 +15,10 @@ from sklearn.ensemble import RandomForestClassifier
 from imblearn.over_sampling import RandomOverSampler 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.utils import to_categorical
 
 
 def GetGraphMetrics(graph):
@@ -72,6 +76,7 @@ if __name__=="__main__":
     metobjects_nonan_paintings['Highlight'] = np.where(metobjects_nonan_paintings['Is Highlight']==True, 'Highlight', 'No Highlight')
 
     print(metobjects_nonan_paintings[['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', 'Title', 'Highlight']])
+    metobjects_nonan_paintings.to_csv("metaobjects_nonan_paintings.csv",index=False)
 
 
     for col in ['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name']:
@@ -96,10 +101,11 @@ if __name__=="__main__":
     met_graph = nx.from_pandas_edgelist(met_graph_df, 'From', 'To')
     met_subgraph = met_graph.subgraph(np.array(np.random.choice(list(met_graph.nodes), int(len(list(met_graph.nodes))/2))))
 
-    GetGraphMetrics(met_graph)
+    # GetGraphMetrics(met_graph)
 
     d = dict(met_graph.degree)
     metric_main_df = pd.DataFrame(index=list(d.keys()))
+    metric_main_df.to_csv("metric_main_df.csv",index=False)
 
     degree_centrality_df = CreateDataframeForCentralityMeasures(sorted(nx.degree_centrality(met_graph).items(), key=lambda x:x[1], reverse=True), 'Degree Centrality')
     closeness_centrality_df = CreateDataframeForCentralityMeasures(sorted(nx.closeness_centrality(met_graph).items(), key=lambda x:x[1], reverse=True), 'Closeness Centrality')
@@ -271,10 +277,20 @@ if __name__=="__main__":
     ros = RandomOverSampler(random_state=0)
     X_train_resampled, y_train_resampled = ros.fit_resample(X_train, y_train)
 
-    clf = RandomForestClassifier(random_state=0)
+    model = Sequential()
+    model.add(Dense(500, activation='relu', input_dim=1))
+    model.add(Dense(100, activation='relu'))
+    model.add(Dense(50, activation='relu'))
+    model.add(Dense(2, activation='softmax'))
 
-    clf.fit(X_train_resampled, y_train_resampled)
-    y_pred = clf.predict(X_test)
+    # Compile the model
+    model.compile(optimizer='adam', 
+                loss='categorical_crossentropy', 
+                metrics=['accuracy'])
+
+    callback = keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
+    model.fit(X_train, y_train, epochs=100, verbose=2, callbacks=[callback], shuffle=False)
+    y_pred = model.predict(X_test)
 
     print('Accuracy', accuracy_score(y_test, y_pred))
     print('Precision', precision_score(y_test, y_pred))
