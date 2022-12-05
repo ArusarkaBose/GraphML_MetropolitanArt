@@ -44,24 +44,25 @@ We form an undirected graph, by creating a edge between two columns if the colum
 The new dataframe is then converted into a graph by adding an edge between the values in the "From" column to "To" column using the networkx library. To better understand the graph, we do some basic analysis on the graph. After performing some basic operations on the graph, we have the final graph results.
 
 **Edge and Node Details**
-Number of nodes : 12688
-Number of edges : 66693
+
+- Number of nodes : 12688
+- Number of edges : 66693
 
 **Degree Details**
-Maximum degree : 9092
-Average degree : 10.512767969735183
-Median degree : 6
+
+- Maximum degree : 9092
+- Average degree : 10.51
+- Median degree : 6
 
 
 **Distance Metrics**
-Total Componets - 1
-Diameter : 6
-Average Distance : 2.500517379796479
+- Total Components - 1
+- Diameter : 6
+- Average Distance : 2.5
 
-
-Graph Clustering
-Transitivity : 0.0015246604242919772
-Average Clustering Coefficient : 0.5194453022433385
+**Structure Components**
+- Transitivity : 0.00153
+- Average Clustering Coefficient : 0.52
 ```
 
 We observe a very low transitivity, as this is not a social network and there is no reason to expect triadic closure to hold. In addition, we shouldn't have many subgraphs that are only connected and nothing else, therefore only 1 connected component is an interesting measure that can make sense. The amount of nodes and edges suggests that the graph is being further segmented by a large number of specialist categories, artists, genres, etc.
