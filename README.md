@@ -11,12 +11,14 @@ The Metropolitan Museum of Art presents over 5,000 years of art from around the 
 **Dataset Summary** - The dataset has categories like 'Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', ‘Dynasty’ and ‘Domain’. These categories help us identify several classes and clusters. We plan on using several graph structure based features like centrality to identify the importance of all of them to design the graph and apply the required algorithms to produce classification classes.
 
 ## Reason behind this project
-Each and every artist has a distinctive style that differentiates his/her painting from the rest and often it is the muse of art connoisseurs to ascribe a painting to someone. This project will aim to develop a model which can be used to classify or cluster paintings belonging to a single artist or multiple artists with the same style of work. The work can be further extended to ferret out fakes from original works in cases where it becomes difficult even for a trained eye. Not just that, similar algorithms and work seem to be applicable in every domain that will flourish with user/product clustering - like e-commerce, business marketing, and identifying the target audience. 
+Each and every artist has a distinctive style that differentiates his/her painting from the rest and often it is the muse of art connoisseurs to ascribe a painting to someone. This project will aim to develop a model which can be used to classify or cluster paintings belonging to a single artist or multiple artists with the same style of work. 
+The work can be further extended to ferret out fakes from original works in cases where it becomes difficult even for a trained eye. Not just that, similar algorithms and work seem to be applicable in every domain that will flourish with user/product clustering - like e-commerce, business marketing, and identifying the target audience. 
 
 ## Data Visualization
-We start with conducting some exploratory data analysis to visualize the dataset. With the help of network topology visualisation, we can understand what kind of data we are dealing with. The dataset consists of over 450K rows which would take a very long time to encode in a graph. Hence, we filter down to works having the Classification of “Paintings” to reduce the complexity of the graph. 
+At the start of the project, we explore data and conduct some exploratory data analysis to visualize the dataset. With the help of network topology visualisation, we can understand what kind of data we are dealing with. The dataset consists of over 450K rows which would take a very long time to encode in a graph. Hence, we filter down to reduce the complexity of the graph. We start the analysis by looking at the countries that provided different pictures and what countries were more relevant in the past in the art work domain. We only considered countries that atleast provided 100 images.
 
-![Untitled](https://user-images.githubusercontent.com/45456921/201350783-fe44ab7b-be3c-4dc9-ba5a-955e047cf7bd.png)
+![newplot](https://user-images.githubusercontent.com/42794447/205661959-6bfde109-0791-4c5b-8e58-a78014e3044d.png)
+
 
 We select a handful of fields having relevance with "Paintings", namely ['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', 'Title', 'Highlight']. Moreover, we replace the NaN fields in each column by unknown_<column_name>. Sorting and collecting the top 10 occuring values for culture, we get:
 
