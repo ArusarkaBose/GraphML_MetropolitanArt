@@ -40,7 +40,7 @@ We observed that for a lot of features, there are a lot of values that are unkno
 ![image](https://user-images.githubusercontent.com/42794447/205700404-7acabf9c-28d8-472f-a15f-bd7d4b072f88.png)
 
 
-### Graph Formation
+## Graph Formation
 We form an undirected graph, by creating a edge between two columns if the columns occur together. We do that by accumulating all rows for pairs of columns into a dataframe, and renaming the columns in a "From" - "To" format.
 
 ![Untitled Diagram drawio (5)](https://user-images.githubusercontent.com/42794447/205692970-6d450b1e-d72e-48d6-b8e0-b04664df4ace.png)
@@ -78,15 +78,17 @@ We calculate various centrality measures for the graph, such as degree centralit
 ## Unsupervised Embedding Models
 
 ### Node2Vec
-The way the random walks are created in the Node2Vec Deep Walk model differs noticeably from that of the Deep Walk model. Because Deep Walk is limited in its ability to preserve a node's local neighbourhood information, Node2Vec does the graph exploration using a flexible and effective combination of Breadth-First Search (BFS) and Depth-First Search (DFS). We do so by:
+Node2Vec is an algorithmic framework for representational learning on graphs. Given any graph, it can learn continuous feature representations for the nodes, which can then be used for various downstream machine learning tasks. It learns low-dimensional representations for nodes in a graph by optimizing a neighborhood preserving objective. Node2Vec does the graph exploration using a flexible and effective combination of Breadth-First Search (BFS) and Depth-First Search (DFS). We do so by:
 1. p: the likelihood that a random stroll will return to the first node.
 2. q: the likelihood that a random walk will go across a portion of the graph that hasn't been seen before. BFS/DFS ration is the ratio.
 
 ![image](https://user-images.githubusercontent.com/42794447/201329387-75b0ee01-3f67-4628-89b3-8848b0bdca61.png)
 
 We see collection of artists being generated calculated via the generated walks. We added Medium, Department, and Object Type in the graph. So, some artists differing in the Period but using common materials appear in the same Department of the Museum. The search results for Vincent van Gogh are:
-
-![image](https://user-images.githubusercontent.com/42794447/201330066-0699ad3d-6a41-4d62-af60-d10eb974bd0c.png)
+- Alfred Sisley(Same Period)
+- Paul Gauguin(Same Country)
+- John Russell(Same Color Theory - captured)
+- Gustave Courbet(Similar Works)
 
 ### Edge2Vec
 Edge2Vec is a fairly straightforward version of Node2Vec in which the embedding of the edge linking two neighbouring nodes is extracted using some elementary mathematical operations on the node embedding. Depending on the nature of your data and how it may relate to each other, different embeddings will be of value. An effective evaluation method can be to try each of them and see which has the most sensible separation of edges.
