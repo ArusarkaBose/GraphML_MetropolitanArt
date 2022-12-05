@@ -91,16 +91,16 @@ We see collection of artists being generated calculated via the generated walks.
 - Gustave Courbet(Similar Works)
 
 ### Edge2Vec
-Edge2Vec is a fairly straightforward version of Node2Vec in which the embedding of the edge linking two neighbouring nodes is extracted using some elementary mathematical operations on the node embedding. Depending on the nature of your data and how it may relate to each other, different embeddings will be of value. An effective evaluation method can be to try each of them and see which has the most sensible separation of edges.
+In Edge2Vec, the embedding of the edge linking two neighbouring nodes is extracted using some elementary mathematical operations on the node embedding. Edge2vec takes both the local and the global structure information of edges into consideration to preserve structure information of embedded edges as much as possible. To achieve this goal, edge2vec first ingeniously combines the deep autoencoder and Skip-gram model through a well-designed deep neural network. The experimental results on different datasets show edge2vec benefits from the direct mapping in preserving the structure information of edges.
 
 ![image](https://user-images.githubusercontent.com/42794447/201333794-d168070f-9d2f-4b28-a5f0-abe34e79f449.png)
 
 The image outlines collection of artists being generated calculated via the generated walks.
 
 ### Graph2Vec
-The learning of node and edge representations is most generalised in this way. This model is known as Doc2Vec in natural language processing since it embeds numerous documents rather than single words or phrases. Graphs can be broken down into smaller units called subgraphs, and the model can be trained to learn an embedding that represents each of these subgraphs.
+Graph kernels use handcrafted features (e.g., shortest paths, graphlets, etc.) and hence are hampered by problems such as poor generalization. To address this limitation, we use a neural embedding framework named graph2vec to learn data-driven distributed representations of arbitrary sized graphs. graph2vec’s embeddings are learnt in an unsupervised manner and are task agnostic. Hence, they could be used for any downstream task such as graph classification, clustering and even seeding supervised representation learning approaches. The learning of node and edge representations is most generalised in this way. Graphs can be broken down into smaller units called subgraphs, and the model can be trained to learn an embedding that represents each of these subgraphs.
 
-![image](https://user-images.githubusercontent.com/42794447/201334165-40e96855-5f49-479a-a7ac-3b3e8dd9a82e.png)
+![image](https://user-images.githubusercontent.com/42794447/205704025-af2bae1d-cec6-44d0-8fdc-666c5385ab28.png)
 
 Simplified graphical representation of the Doc2Vec skip-gram model. The number of d neurons in the hidden layer represents the final size of the embedding space. We can have the following three different ways subgraphs may be created.
 
@@ -108,7 +108,8 @@ Simplified graphical representation of the Doc2Vec skip-gram model. The number o
 2. Create a node (super-node) that symbolizes and spans each subgraph and then embed that node.
 3. Anonymous Walk Embeddings. Capture states that correspond to the index of the first time a node is visited in a random walk. Considered anonymous because this method is agnostic to the identity of the nodes visited.
 
-![image](https://user-images.githubusercontent.com/42794447/201336600-10ff219a-ae05-4dd4-906b-2b433034f299.png)
+![image](https://user-images.githubusercontent.com/42794447/205703689-9d257abc-6bbe-4910-a98b-809f2d5bc955.png)
+
 
 To express the graph as a probability distribution over these walks is the main objective.
 In our situation, we can make subgraphs using just the rows that contain works by Vincent van Gogh and the other artists the model identified as being related to him. We can express all of their data using embeddings in a far more compact and effective manner. Note that for the model to fit properly, the node labels must be converted to integers. The next figure shows the results for the same search for Graph2Vec.
