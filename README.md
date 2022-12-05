@@ -143,7 +143,9 @@ On looking at the dataset, we see a variety of features that can be used to pred
 
 ![image](https://user-images.githubusercontent.com/51702854/201317108-56d1783e-9cdc-474e-9294-7dcc055f608d.png)
 
-We randomly oversample our dataset and then predict for the target variable.
+We randomly oversample our dataset and then predict for the target variable. We use a Keras neural model with four dense layers and compile it with the ADAM optimizer. We optimize for categorical crossentropy.
+
+![image](https://user-images.githubusercontent.com/51702854/205681577-25cc741c-471a-443a-bea1-0f33e9e660dc.png)
 
 ![image](https://user-images.githubusercontent.com/51702854/201317464-f5f8a468-923b-4b74-b655-e3d4a379bbdb.png)
 
