@@ -24,31 +24,20 @@ from keras.utils import to_categorical
 def GetGraphMetrics(graph):
     
     graph_degree = dict(graph.degree)
-    print("Graph Summary:")
     print(f"Number of nodes : {len(graph.nodes)}")
     print(f"Number of edges : {len(graph.edges)}")
+    
     print(f"Maximum degree : {np.max(list(graph_degree.values()))}")
-    print(f"Minimum degree : {np.min(list(graph_degree.values()))}")
     print(f"Average degree : {np.mean(list(graph_degree.values()))}")
     print(f"Median degree : {np.median(list(graph_degree.values()))}")
-    print("")
+
     print("Graph Connectivity")
-    try:
-        print(f"Connected Components : {nx.number_connected_components(graph)}")
-    except:
-        print(f"Strongly Connected Components : {nx.number_strongly_connected_components(graph)}")
-        print(f"Weakly Connected Components : {nx.number_weakly_connected_components(graph)}")
-    print("")
+    print(f"Connected Components : {nx.number_connected_components(graph)}")
+    
     print("Graph Distance")
-    try:
-        print(f"Average Distance : {nx.average_shortest_path_length(graph)}")
-        print(f"Diameter : {nx.algorithms.distance_measures.diameter(graph)}")
-    except:
-        shortest_lengths = []
-        for C in nx.strongly_connected_components(graph):
-            shortest_lengths.append(nx.average_shortest_path_length(G.subgraph(C)))
-        print(f"Average Shortest Lengths of Strongly Connected Components : {np.mean(shortest_lengths)}")
-    print("")
+    print(f"Average Distance : {nx.average_shortest_path_length(graph)}")
+    print(f"Diameter : {nx.algorithms.distance_measures.diameter(graph)}")
+    
     print("Graph Clustering")
     print(f"Transitivity : {nx.transitivity(graph)}")
     print(f"Average Clustering Coefficient : {nx.average_clustering(graph)}")
@@ -59,6 +48,7 @@ def GetGraphMetrics(graph):
 def CreateDataframeForCentralityMeasures(sorted_centrality_teams, centrality_name):
     df = pd.DataFrame(sorted_centrality_teams, columns=['Node', centrality_name])
     return df
+
 
 if __name__=="__main__":
     metobjects = pd.read_csv('MetObjects.csv', encoding='utf8')
@@ -129,10 +119,6 @@ if __name__=="__main__":
         met_graph.edges[(e[0],e[1])]['pa'] = [p for u,v,p in nx.preferential_attachment(met_graph, [(e[0], e[1])])][0]
         
     pos = nx.kamada_kawai_layout(met_graph)
-
-    options = {'node_size': 50,
-            'linewidths': .2,
-            'width': 0.25}
 
     random.seed(0)
     node2vec = Node2Vec(met_graph, dimensions=20, walk_length=10, num_walks=100)
