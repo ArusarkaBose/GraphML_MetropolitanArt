@@ -49,6 +49,21 @@ def CreateDataframeForCentralityMeasures(sorted_centrality_teams, centrality_nam
     df = pd.DataFrame(sorted_centrality_teams, columns=['Node', centrality_name])
     return df
 
+<<<<<<< HEAD
+=======
+def CreateDataframeForGraphGeneration(raw_data):
+    met_graph_df = raw_data[['Artist Display Name', 'Title']].rename(columns={'Artist Display Name':'From', 'Title':'To'}).append(
+                    raw_data[['Artist Display Name', 'Culture']].rename(columns={'Artist Display Name':'From', 'Culture':'To'}), ignore_index=True).append(
+                        raw_data[['Culture', 'Title']].rename(columns={'Culture':'From', 'Title':'To'}), ignore_index=True).append(
+                            raw_data[['Artist Display Name', 'Period']].rename(columns={'Artist Display Name':'From', 'Period':'To'}), ignore_index=True).append(
+                                raw_data[['Period', 'Title']].rename(columns={'Period':'From', 'Title':'To'}), ignore_index=True).append(
+                                    raw_data[['Artist Display Name', 'Medium']].rename(columns={'Artist Display Name':'From', 'Medium':'To'}), ignore_index=True).append(
+                                        raw_data[['Medium', 'Title']].rename(columns={'Medium':'From', 'Title':'To'}), ignore_index=True).append(
+                                            raw_data[['Artist Display Name', 'Department']].rename(columns={'Artist Display Name':'From', 'Department':'To'}), ignore_index=True).append(
+                                                raw_data[['Department', 'Title']].rename(columns={'Department':'From', 'Title':'To'}), ignore_index=True).append(
+                                                    raw_data[['Artist Display Name', 'Object Name']].rename(columns={'Artist Display Name':'From', 'Object Name':'To'}), ignore_index=True).append(
+                                                        raw_data[['Object Name', 'Title']].rename(columns={'Object Name':'From', 'Title':'To'}), ignore_index=True)
+>>>>>>> 7eeceed (Node clustering to find artists similar to van hogh)
 
 if __name__=="__main__":
     metobjects = pd.read_csv('MetObjects.csv', encoding='utf8')
@@ -63,17 +78,7 @@ if __name__=="__main__":
     print(metobjects_nonan_paintings[['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', 'Title', 'Highlight']])
     metobjects_nonan_paintings.to_csv("metaobjects_nonan_paintings.csv",index=False)
 
-    met_graph_df = metobjects_nonan_paintings[['Artist Display Name', 'Title']].rename(columns={'Artist Display Name':'From', 'Title':'To'}).append(
-                    metobjects_nonan_paintings[['Artist Display Name', 'Culture']].rename(columns={'Artist Display Name':'From', 'Culture':'To'}), ignore_index=True).append(
-                        metobjects_nonan_paintings[['Culture', 'Title']].rename(columns={'Culture':'From', 'Title':'To'}), ignore_index=True).append(
-                            metobjects_nonan_paintings[['Artist Display Name', 'Period']].rename(columns={'Artist Display Name':'From', 'Period':'To'}), ignore_index=True).append(
-                                metobjects_nonan_paintings[['Period', 'Title']].rename(columns={'Period':'From', 'Title':'To'}), ignore_index=True).append(
-                                    metobjects_nonan_paintings[['Artist Display Name', 'Medium']].rename(columns={'Artist Display Name':'From', 'Medium':'To'}), ignore_index=True).append(
-                                        metobjects_nonan_paintings[['Medium', 'Title']].rename(columns={'Medium':'From', 'Title':'To'}), ignore_index=True).append(
-                                            metobjects_nonan_paintings[['Artist Display Name', 'Department']].rename(columns={'Artist Display Name':'From', 'Department':'To'}), ignore_index=True).append(
-                                                metobjects_nonan_paintings[['Department', 'Title']].rename(columns={'Department':'From', 'Title':'To'}), ignore_index=True).append(
-                                                    metobjects_nonan_paintings[['Artist Display Name', 'Object Name']].rename(columns={'Artist Display Name':'From', 'Object Name':'To'}), ignore_index=True).append(
-                                                        metobjects_nonan_paintings[['Object Name', 'Title']].rename(columns={'Object Name':'From', 'Title':'To'}), ignore_index=True)
+    met_graph_df = CreateDataframeForGraphGeneration(metobjects_nonan_paintings)
 
     print(met_graph_df)
 
@@ -123,68 +128,58 @@ if __name__=="__main__":
     random.seed(0)
     node2vec = Node2Vec(met_graph, dimensions=20, walk_length=10, num_walks=100)
     model = node2vec.fit(window=10)
-    embeddings = model.wv
+    node_embeddings = model.wv
+    artist_list = list(metaobjects_nonan_paintings['Artist Display Name'].unique())
+    artist_list = [artist for artist in artist_list if artist not in ['unknown_Artist Display Name', 'Unidentified Artist']]
 
     fig, ax = plt.subplots(figsize=(25,15))
 
-    for x in met_graph.nodes():
-        if (x in list(metobjects_nonan_paintings.groupby('Artist Display Name').size().sort_values(ascending=False)[:50].index)) & (x not in ['unknown_Artist Display Name', 'Unidentified Artist']):
-        
-            v = model.wv[str(x)]
+    for node in met_graph.nodes():
+        if node in artist_list:
+            v = model.wv[str(node)]
             ax.scatter(v[0],v[1], s=1000)
-            ax.annotate(str(x), (v[0],v[1]), fontsize=16)
+            ax.annotate(str(node), (v[0],v[1]), fontsize=16)
 
     plt.show()
 
     #Artists similar to Vincent van Gogh
-    for artist,_ in model.wv.most_similar('Vincent van Gogh'):
-        if (artist in list(metobjects_nonan_paintings['Artist Display Name'].unique())) & (artist not in ['unknown_Artist Display Name', 'Unidentified Artist']):
-            print(artist)
+    vangogh_similar_artists = []
+    for node,_ in node_embeddings.most_similar('Vincent van Gogh'):
+        # Check if node is a artist
+        if node in artist_list:
+            vangogh_similar_artists.append(node)
+            print(node)
 
-    edges_embs_avg = AverageEmbedder(keyed_vectors=model.wv)
-    edges_embs_had = HadamardEmbedder(keyed_vectors=model.wv)
-    edges_embs_wl1 = WeightedL1Embedder(keyed_vectors=model.wv)
-    edges_embs_wl2 = WeightedL2Embedder(keyed_vectors=model.wv)
-
-    vangogh_similar = ['Vincent van Gogh', 'Paul Cézanne', 'Goya (Francisco de Goya y Lucientes)', 'Georges Rouault', 'Alfred Sisley', 'Georges Seurat', 'Claude Monet', 'Gustave Courbet', 'Edward McKnight Kauffer']
+    edge_embedding = AverageEmbedder(keyed_vectors=model.wv)
+    
     fig, ax = plt.subplots(figsize=(25,15))
 
     for x in met_graph.edges():
-        if (x[0] in vangogh_similar) & (x[1] in list(metobjects_nonan_paintings['Title'].unique())):
+        if (x[0] in vangogh_similar_artists) & (x[1] in list(metobjects_nonan_paintings['Title'].unique())):
             
-            v = edges_embs_avg[(str(x[0]), str(x[1]))]
+            v = edge_embedding[(str(x[0]), str(x[1]))]
             ax.scatter(v[0],v[1], s=1000)
             ax.annotate(str(x), (v[0],v[1]), fontsize=16)
 
     plt.show()
 
-    vangogh_similar_graphs = []
+    vangogh_similar_artist_subgraphs = []
 
-    for artist_similar_to_vangogh in vangogh_similar:
-        vangogh_similar_paintings = metobjects_nonan_paintings[metobjects_nonan_paintings['Artist Display Name']==artist_similar_to_vangogh]
-        artist_subgraph_df = vangogh_similar_paintings[['Artist Display Name', 'Title']].rename(columns={'Artist Display Name':'From', 'Title':'To'}).append(
-                                vangogh_similar_paintings[['Artist Display Name', 'Culture']].rename(columns={'Artist Display Name':'From', 'Culture':'To'}), ignore_index=True).append(
-                                    vangogh_similar_paintings[['Culture', 'Title']].rename(columns={'Culture':'From', 'Title':'To'}), ignore_index=True).append(
-                                        vangogh_similar_paintings[['Artist Display Name', 'Period']].rename(columns={'Artist Display Name':'From', 'Period':'To'}), ignore_index=True).append(
-                                            vangogh_similar_paintings[['Period', 'Title']].rename(columns={'Period':'From', 'Title':'To'}), ignore_index=True).append(
-                                                vangogh_similar_paintings[['Artist Display Name', 'Medium']].rename(columns={'Artist Display Name':'From', 'Medium':'To'}), ignore_index=True).append(
-                                                    vangogh_similar_paintings[['Medium', 'Title']].rename(columns={'Medium':'From', 'Title':'To'}), ignore_index=True).append(
-                                                        vangogh_similar_paintings[['Artist Display Name', 'Department']].rename(columns={'Artist Display Name':'From', 'Department':'To'}), ignore_index=True).append(
-                                                            vangogh_similar_paintings[['Department', 'Title']].rename(columns={'Department':'From', 'Title':'To'}), ignore_index=True).append(
-                                                                vangogh_similar_paintings[['Artist Display Name', 'Object Name']].rename(columns={'Artist Display Name':'From', 'Object Name':'To'}), ignore_index=True).append(
-                                                                    vangogh_similar_paintings[['Object Name', 'Title']].rename(columns={'Object Name':'From', 'Title':'To'}), ignore_index=True)
+    for artist in vangogh_similar_artists:
+        vangogh_similar_artist_paintings = metobjects_nonan_paintings[metobjects_nonan_paintings['Artist Display Name']==artist]
+        artist_subgraph_df = CreateDataframeForGraphGeneration(vangogh_similar_artist_paintings)
         artist_subgraph = nx.from_pandas_edgelist(artist_subgraph_df, 'From', 'To')
-        vangogh_similar_graphs.append(artist_subgraph)
+        vangogh_similar_artist_subgraphs.append(artist_subgraph)
         
     graphs_model = Graph2Vec(dimensions=2)
-    graphs_model.fit([nx.convert_node_labels_to_integers(x) for x in vangogh_similar_graphs])
+    graphs_model.fit([nx.convert_node_labels_to_integers(subgraph) for subgraph in vangogh_similar_artist_subgraphs])
     graph_embeddings = graphs_model.get_embedding()
 
     fig, ax = plt.subplots(figsize=(25,10))
 
     for i,vec in enumerate(graph_embeddings):
         ax.scatter(vec[0],vec[1], s=1000)
-        ax.annotate(str(vangogh_similar[i]), (vec[0],vec[1]), fontsize=16)
+        ax.annotate(str(vangogh_similar_artists[i]), (vec[0],vec[1]), fontsize=16)
 
     train_test_df = metobjects_nonan_paintings[['Title', 'Highlight']].set_index('Title').join(metric_main_df, how='left')
     train_test_df['Highlight'] = np.where(train_test_df['Highlight']=='Highlight', 1, 0)
