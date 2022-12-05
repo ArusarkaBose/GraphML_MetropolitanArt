@@ -39,24 +39,25 @@ We observed that for a lot of features, there are a lot of values that are unkno
 ### Graph Formation
 We form an undirected graph, by creating a edge between two columns if the columns occur together. We do that by accumulating all rows for pairs of columns into a dataframe, and renaming the columns in a "From" - "To" format.
 
-![Untitled Diagram drawio (4)](https://user-images.githubusercontent.com/42794447/205692596-28a52033-9204-4bd2-aa06-c29b6301ea98.png)
+![Untitled Diagram drawio (5)](https://user-images.githubusercontent.com/42794447/205692970-6d450b1e-d72e-48d6-b8e0-b04664df4ace.png)
 
-The new dataframe is then converted into a graph by adding an edge between the values in the "From" column to "To" column using the networkx library. To better understand the graph, we do some basic analysis on the graph:
+The new dataframe is then converted into a graph by adding an edge between the values in the "From" column to "To" column using the networkx library. To better understand the graph, we do some basic analysis on the graph. After performing some basic operations on the graph, we have the final graph results.
 
-```
+**Edge and Node Details**
 Number of nodes : 12688
 Number of edges : 66693
+
+**Degree Details**
 Maximum degree : 9092
-Minimum degree : 2
 Average degree : 10.512767969735183
 Median degree : 6
 
-Graph Connectivity
-Connected Components : 1
 
-Graph Distance
-Average Distance : 2.500517379796479
+**Distance Metrics**
+Total Componets - 1
 Diameter : 6
+Average Distance : 2.500517379796479
+
 
 Graph Clustering
 Transitivity : 0.0015246604242919772
