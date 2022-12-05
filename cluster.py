@@ -62,13 +62,8 @@ def CreateDataframeForCentralityMeasures(sorted_centrality_teams, centrality_nam
 
 if __name__=="__main__":
     metobjects = pd.read_csv('MetObjects.csv', encoding='utf8')
-    print(metobjects.shape)
-    # (448203, 43)
-
-    print(metobjects.head())
-    print(metobjects['Classification'].value_counts()[:20])
-
     metobjects_nonan = metobjects.copy()
+    
     for c in metobjects_nonan.columns:
         metobjects_nonan[c] = metobjects_nonan[c].fillna(f'unknown_{c}')
     metobjects_nonan_paintings = metobjects_nonan[metobjects_nonan['Classification']=='Paintings']
@@ -77,12 +72,6 @@ if __name__=="__main__":
 
     print(metobjects_nonan_paintings[['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', 'Title', 'Highlight']])
     metobjects_nonan_paintings.to_csv("metaobjects_nonan_paintings.csv",index=False)
-
-
-    for col in ['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name']:
-        print(f'Top 10 for {col}')
-        print(metobjects_nonan_paintings.groupby(col).size().sort_values(ascending=False)[:10])
-        print(" ")
 
     met_graph_df = metobjects_nonan_paintings[['Artist Display Name', 'Title']].rename(columns={'Artist Display Name':'From', 'Title':'To'}).append(
                     metobjects_nonan_paintings[['Artist Display Name', 'Culture']].rename(columns={'Artist Display Name':'From', 'Culture':'To'}), ignore_index=True).append(
@@ -144,58 +133,6 @@ if __name__=="__main__":
     options = {'node_size': 50,
             'linewidths': .2,
             'width': 0.25}
-
-    low, *_, high = sorted(d.values())
-    norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
-    mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.plasma)
-
-    plt.figure(figsize = (25, 12.5))
-    nx.draw(met_graph, 
-            pos=pos,
-            nodelist=d,
-            node_color=[mapper.to_rgba(i) for i in d.values()],
-            edge_color=[met_graph[u][v]['jac'] for u,v in met_graph.edges()],
-            **options
-        )
-
-    mapper.set_array(sorted(d.values()))
-    plt.colorbar(mapper, fraction=0.05, pad=0.01)
-    plt.show()
-
-    print(metric_main_df.sort_values('Normalized Flow Centrality', ascending=False)[:30])
-
-    fig, (ax1, ax2) = plt.subplots(1,2, figsize=(25, 5))
-    plt.rcParams.update({'font.size': 12})
-
-
-    ax1 = sns.histplot(metric_main_df, x='Degree Centrality', stat='probability', color='teal', ax=ax1)
-    ax2 = sns.histplot(metric_main_df, x='Closeness Centrality', stat='probability', color='darkblue', ax=ax2)
-
-    ax1.set(xlabel='Degree Centrality')
-    ax1.set_title('Degree Centrality')
-    ax2.set(xlabel='Closeness Centrality')
-    ax2.set_title('Closeness Centrality')
-    plt.subplots_adjust(hspace = 0.3)
-
-    ax1 = sns.set_style("darkgrid")
-    ax2 = sns.set_style("darkgrid")
-    plt.show()
-
-    fig, (ax1, ax2) = plt.subplots(1,2, figsize=(25, 5))
-    plt.rcParams.update({'font.size': 12})
-
-
-    ax1 = sns.histplot(metric_main_df, x='Hubs', stat='probability', color='indianred', ax=ax1)
-    ax2 = sns.histplot(metric_main_df, x='Authorities', stat='probability', color='indianred', ax=ax2)
-
-    ax1.set(xlabel='Hubs')
-    ax1.set_title('Hubs')
-    ax2.set(xlabel='Authorities')
-    ax2.set_title('Authorities')
-    plt.subplots_adjust(hspace = 0.3)
-
-    ax = sns.set_style("darkgrid")
-    plt.show()
 
     random.seed(0)
     node2vec = Node2Vec(met_graph, dimensions=20, walk_length=10, num_walks=100)
