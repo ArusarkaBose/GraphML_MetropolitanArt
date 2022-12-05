@@ -49,8 +49,6 @@ def CreateDataframeForCentralityMeasures(sorted_centrality_teams, centrality_nam
     df = pd.DataFrame(sorted_centrality_teams, columns=['Node', centrality_name])
     return df
 
-<<<<<<< HEAD
-=======
 def CreateDataframeForGraphGeneration(raw_data):
     met_graph_df = raw_data[['Artist Display Name', 'Title']].rename(columns={'Artist Display Name':'From', 'Title':'To'}).append(
                     raw_data[['Artist Display Name', 'Culture']].rename(columns={'Artist Display Name':'From', 'Culture':'To'}), ignore_index=True).append(
@@ -63,7 +61,6 @@ def CreateDataframeForGraphGeneration(raw_data):
                                                 raw_data[['Department', 'Title']].rename(columns={'Department':'From', 'Title':'To'}), ignore_index=True).append(
                                                     raw_data[['Artist Display Name', 'Object Name']].rename(columns={'Artist Display Name':'From', 'Object Name':'To'}), ignore_index=True).append(
                                                         raw_data[['Object Name', 'Title']].rename(columns={'Object Name':'From', 'Title':'To'}), ignore_index=True)
->>>>>>> 7eeceed (Node clustering to find artists similar to van hogh)
 
 if __name__=="__main__":
     metobjects = pd.read_csv('MetObjects.csv', encoding='utf8')
