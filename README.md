@@ -17,17 +17,18 @@ The work can be further extended to ferret out fakes from original works in case
 ## Data Visualization
 At the start of the project, we explore data and conduct some exploratory data analysis to visualize the dataset. With the help of network topology visualisation, we can understand what kind of data we are dealing with. The dataset consists of over 450K rows which would take a very long time to encode in a graph. Hence, we filter down to reduce the complexity of the graph. 
 
-**Identification of Relevant Countries** - We start the analysis by looking at the countries that provided different pictures and what countries were more relevant in the past in the art work domain. We only considered countries that atleast provided 100 images. We also observed from the distribtuion that only nine of the countries have a contribution of two percent and more than 80% of the total distribution. So, we clearly see the country of the artwork is an important aspect for identifying relevant artwork.
+**Segregration based on Department** - We found that other than country and artist, another key feature useful for clustering artworks is the department of the art. Arts from the Medieval Period seemed extremely close to each other. We saw their distribution as well and plot the department if the count is greater than 1000.
 
-![newplot](https://user-images.githubusercontent.com/42794447/205661959-6bfde109-0791-4c5b-8e58-a78014e3044d.png)
+![newplot (2)](https://user-images.githubusercontent.com/42794447/205672094-bfeb0202-4f92-4a39-b53a-dcd08c7cb34d.png)
 
 **Identification of Relevant Artists** - Next, we aimed to identifying the distribution of different artists and their artwork. It goes without saying that some paintings from an artist will be extremely related and should be identified as a part of a similar group while the same might not be true for some of the paintings of the same artist. Also, it might be related to different paintings by a different artist. 
 
 ![newplot (1)](https://user-images.githubusercontent.com/42794447/205666023-dabd7bd4-1e8a-4935-87ea-ac6be6d21b03.png)
 
-**Segregration based on Department** - We found that other than country and artist, another key feature useful for clustering artworks is the department of the art. Arts from the Medieval Period seemed extremely close to each other. We saw their distribution as well and plot the department if the count is greater than 1000.
+**Identification of Relevant Countries** - We start the analysis by looking at the countries that provided different pictures and what countries were more relevant in the past in the art work domain. We only considered countries that atleast provided 100 images. We also observed from the distribtuion that only nine of the countries have a contribution of two percent and more than 80% of the total distribution. So, we clearly see the country of the artwork is an important aspect for identifying relevant artwork.
 
-![newplot (2)](https://user-images.githubusercontent.com/42794447/205672094-bfeb0202-4f92-4a39-b53a-dcd08c7cb34d.png)
+![newplot](https://user-images.githubusercontent.com/42794447/205661959-6bfde109-0791-4c5b-8e58-a78014e3044d.png)
+
 
 We select a handful of fields having relevance with "Paintings", namely ['Culture', 'Period', 'Artist Display Name', 'Medium', 'Object Name', 'Title', 'Highlight']. Moreover, we replace the NaN fields in each column by unknown_<column_name>. Sorting and collecting the top 10 occuring values for culture, we get:
 
